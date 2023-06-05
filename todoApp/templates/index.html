@@ -1,0 +1,216 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>To do tasks</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://netdna.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
+    <link href="{% static 'css/style.css' %}" rel="stylesheet">
+</head>
+
+<body>
+    <div class="container page-todo bootstrap snippets bootdeys">
+        <div class="col-sm-7 tasks">
+            <div class="task-list">
+                <h1>Tasks</h1>
+
+                <!-- HIGH PRIORITY -->
+
+                <div class="priority high"><span>High Priority</span></div>
+                {% for response in response %}
+                {% if response.priority == 1 %}
+                <div class="task high">
+                    <div class="task" onclick="editTask('{{ response.id }}')">
+                        <div class="desc">
+                            <div class="title">{{ response.title }}</div>
+                            <div>{{ response.description }}</div>
+                        </div>
+                        <div class="time">
+                            <div class="date">{{ response.created_at|date:"M j, Y" }}</div>
+                            <!-- <div> 1 day</div> -->
+                        </div>
+                        <form method="post" action="/delete_task/{{ response.id }}/" style="display: inline;">
+                            {% csrf_token %}
+                            <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                        </form>
+                    </div>
+                    <form id="edit-form-{{ response.id }}" method="post" action="/update_task/{{ response.id }}/"
+                        style="display: none;">
+                        {% csrf_token %}
+                        <input type="hidden" name="task_id" value="{{ response.id }}">
+                        <label for="priority">Priority:</label>
+                        <select id="priority" name="priority">
+                            {% if response.priority == 1 %}
+                            <option value="1" selected="selected">High</option>
+                            <option value="2">Medium</option>
+                            <option value="3">Low</option>
+                            {% elif response.priority == 2 %}
+                            <option value="1">High</option>
+                            <option value="2" selected="selected">Medium</option>
+                            <option value="3">Low</option>
+                            {% else %}
+                            <option value="1">High</option>
+                            <option value="2">Medium</option>
+                            <option value="3" selected="selected">Low</option>
+                            {% endif %}
+                        </select><br>
+                        </select><br>
+                        <label for="title">Title:</label>
+                        <input type="text" id="title" name="title" value="{{ response.title }}" required><br>
+                        <label for="description">Description:</label>
+                        <textarea id="description" name="description">{{ response.description }}</textarea><br>
+                        <button type="submit" class="btn btn-primary btn-sm">Update</button>
+                    </form>
+                </div>
+                {% endif %}
+                {% endfor %}
+
+                <!-- MEDIUM PRIORITY -->
+
+                <div class="priority medium"><span>Medium Priority</span></div>
+                {% for response in response %}
+                {% if response.priority == 2 %}
+                <div class="task medium">
+                    <div class="task" onclick="editTask('{{ response.id }}')">
+                        <div class="desc">
+                            <div class="title">{{ response.title }}</div>
+                            <div>{{ response.description }}</div>
+                        </div>
+                        <div class="time">
+                            <div class="date">{{ response.created_at|date:"M j, Y" }}</div>
+                            <!-- <div> 1 day</div> -->
+                        </div>
+                        <form method="post" action="/delete_task/{{ response.id }}/" style="display: inline;">
+                            {% csrf_token %}
+                            <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                        </form>
+                    </div>
+                    <form id="edit-form-{{ response.id }}" method="post" action="/update_task/{{ response.id }}/"
+                        style="display: none;">
+                        {% csrf_token %}
+                        <input type="hidden" name="task_id" value="{{ response.id }}">
+                        <label for="priority">Priority:</label>
+                        <select id="priority" name="priority">
+                            {% if response.priority == 1 %}
+                            <option value="1" selected="selected">High</option>
+                            <option value="2">Medium</option>
+                            <option value="3">Low</option>
+                            {% elif response.priority == 2 %}
+                            <option value="1">High</option>
+                            <option value="2" selected="selected">Medium</option>
+                            <option value="3">Low</option>
+                            {% else %}
+                            <option value="1">High</option>
+                            <option value="2">Medium</option>
+                            <option value="3" selected="selected">Low</option>
+                            {% endif %}
+                        </select><br>
+                        </select><br>
+                        <label for="title">Title:</label>
+                        <input type="text" id="title" name="title" value="{{ response.title }}" required><br>
+                        <label for="description">Description:</label>
+                        <textarea id="description" name="description">{{ response.description }}</textarea><br>
+                        <button type="submit" class="btn btn-primary btn-sm">Update</button>
+                    </form>
+                </div>
+                {% endif %}
+                {% endfor %}
+
+                <!-- LOW PRIORITY -->
+
+                <div class="priority low"><span>low priority</span></div>
+                {% for response in response %}
+                {% if response.priority == 3 %}
+                <div class="task low">
+                    <div class="task" onclick="editTask('{{ response.id }}')">
+                        <div class="desc">
+                            <div class="title"> {{ response.title }}</div>
+                            <div>{{ response.description }}</div>
+                        </div>
+                        <div class="time">
+                            <div class="date">{{ response.created_at|date:"M j, Y" }}</div>
+                            <!-- <div> 1 day</div> -->
+                        </div>
+                        <form method="post" action="/delete_task/{{ response.id }}/" style="display: inline;">
+                            {% csrf_token %}
+                            <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                        </form>
+                    </div>
+                    <form id="edit-form-{{ response.id }}" method="post" action="/update_task/{{ response.id }}/"
+                        style="display: none;">
+                        {% csrf_token %}
+                        <input type="hidden" name="task_id" value="{{ response.id }}">
+                        <label for="priority">Priority:</label>
+                        <select id="priority" name="priority">
+                            {% if response.priority == 1 %}
+                            <option value="1" selected="selected">High</option>
+                            <option value="2">Medium</option>
+                            <option value="3">Low</option>
+                            {% elif response.priority == 2 %}
+                            <option value="1">High</option>
+                            <option value="2" selected="selected">Medium</option>
+                            <option value="3">Low</option>
+                            {% else %}
+                            <option value="1">High</option>
+                            <option value="2">Medium</option>
+                            <option value="3" selected="selected">Low</option>
+                            {% endif %}
+                            <label for="title">Title:</label>
+                            <input type="text" id="title" name="title" value="{{ response.title }}" required><br>
+                            <label for="description">Description:</label>
+                            <textarea id="description" name="description">{{ response.description }}</textarea><br>
+                            <button type="submit" class="btn btn-primary btn-sm">Update</button>
+                    </form>
+                </div>
+                {% endif %}
+                {% endfor %}
+
+                <div class="clearfix"></div>
+            </div>
+        </div>
+        <h1>Add Task</h1>
+
+        <form method="post" action="/">
+            {% csrf_token %}
+
+            <label for="priority">Priority:</label>
+            <select id="priority" name="priority">
+                <option value="1">High</option>
+                <option value="2">Medium</option>
+                <option value="3">Low</option>
+            </select><br>
+            <label for="title">Title:</label>
+            <input type="text" id="title" name="title" required><br>
+
+            <label for="description">Description:</label>
+            <textarea id="description" name="description"></textarea><br>
+
+
+            <!-- Add any other fields you have in your Task model -->
+
+            <input type="submit">
+        </form>
+
+        {% if alert %}
+        <p>{{ alert }}</p>
+        {% endif %}
+    </div>
+    <script type="text/javascript">
+        function editTask(taskId) {
+            // Hide all edit forms
+            $('form[id^="edit-form"]').hide();
+
+            // Show the selected task's edit form
+            $('#edit-form-' + taskId).show();
+        }
+    </script>
+    <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
+    <script src="https://netdna.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+    <script type="text/javascript">
+
+    </script>
+</body>
+
+</html>
