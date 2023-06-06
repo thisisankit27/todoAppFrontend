@@ -9,7 +9,7 @@ env.read_env()
 
 
 def get_token():
-    response = requests.post('http://127.0.0.1:5690/api/token/',
+    response = requests.post('http://52.55.216.140:5690/api/token/',
                              data={'username': env('USERNAME_API'), 'password': env('PASSWORD_API')})
     if response.status_code == 200:
         return response.json().get('access')
@@ -24,7 +24,7 @@ def make_api_request(method, endpoint, headers=None, data=None):
     if token is None:
         return None
     headers['Authorization'] = f'Bearer {token}'
-    url = f'http://127.0.0.1:5690/api/{endpoint}/'
+    url = f'http://52.55.216.140:5690/api/{endpoint}/'
     response = requests.request(method, url, headers=headers, data=data)
     return response
 
